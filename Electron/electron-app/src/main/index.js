@@ -1,25 +1,29 @@
-import { app, shell, BrowserWindow } from 'electron'
-import { join } from 'path'
+const { app, BrowserWindow, Menu } = require('electron')
+const path = require('node:path')
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 
+let mainWindow;
+let newProductWindow;
+
 function createWindow() {
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 900,
     height: 670,
-    show: true,
-    autoHideMenuBar: false,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
-      preload: join(__dirname, '../preload/index.js'),
-      sandbox: false
+      preload: path.join(__dirname, '../preload/index.js'),
+      sandbox: true
     }
   })
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
   })
+
+  const mainMenu = Menu.buildFromTemplate(templateMenu);
+  Menu.setApplicationMenu(mainMenu)
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
     shell.openExternal(details.url)
@@ -31,9 +35,81 @@ function createWindow() {
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
     mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'])
   } else {
-    mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
+    mainWindow.loadFile(path.join(__dirname, '../renderer/index.html'))
   }
 }
+
+const createNewProductWindow = () => {
+  newProductWindow = new BrowserWindow({
+    width: 400,
+    height: 330,
+    title:'Segunda ventana',
+    webPreferences: {
+      preload: path.join(__dirname, '../preload/index.js'),
+      sandbox: true
+    }
+  })
+
+  newProductWindow.on('ready-to-show', () => {
+    newProductWindow.show()
+  })
+  //para quitar el menu
+  newProductWindow.setMenu(null);
+
+  mainWindow.webContents.setWindowOpenHandler((details) => {
+    shell.openExternal(details.url)
+    return { action: 'deny' }
+  })
+
+  if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
+    mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'])
+  } else {
+    mainWindow.loadFile(path.join(__dirname, '../renderer/index.html'))
+  }
+}
+
+const templateMenu = [
+  {
+    label: 'File',
+    submenu: [
+    {
+      label: 'New Product',
+      accelerator: 'Ctrl+N',
+      click() {
+        createNewProductWindow();
+      }
+    },
+    {
+      label: 'Remove All Products',
+      click() {
+        
+      }
+    },
+    {
+      label: 'Exit',
+      accelerator: 'Esc',
+      click() {
+        app.quit();
+      }
+    },
+  ]
+  },
+  {
+    label: 'DevTools',
+    submenu: [
+      {
+        label: 'Show/Hide Dev Tools',
+        accelerator: process.platform == 'darwin' ? 'Comand+D' : 'Ctrl+D',
+        click(item, focusedWindow) {
+          focusedWindow.toggleDevTools();
+        }
+      },
+      {
+        role: 'reload'
+      }
+    ]
+  }
+]
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -66,6 +142,7 @@ app.on('window-all-closed', () => {
     app.quit()
   }
 })
+
 
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
