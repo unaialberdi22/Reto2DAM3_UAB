@@ -1,0 +1,13 @@
+{
+  "name": "electron-app",
+  "version": "1.0.0",
+  "main": "./out/main/index.js",
+  "scripts": {
+    "start": "electron-vite preview",  
+    "dev": "electron-vite dev",
+    "prebuild": "electron-vite build"
+  },
+  "devDependencies": {
+    "electron-vite": "^2.0.0"
+  }
+}
