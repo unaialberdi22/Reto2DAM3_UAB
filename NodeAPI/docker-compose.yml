@@ -4,9 +4,9 @@ services:
   api:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: dockerfile
     image: node:14
-    container_name: your-api-container-name
+    container_name: Api-Gidari
     ports:
       - "3000:3000"
     environment:

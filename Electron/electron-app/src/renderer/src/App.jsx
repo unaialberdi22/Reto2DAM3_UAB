@@ -1,10 +1,9 @@
-import Versions from './components/Versions'
-import icons from './assets/icons.svg'
+import Menu from './components/menu'
 
 function App() {
   return (
     <div className="container">
-     <h1>Gidari</h1>
+     <Menu></Menu>
     </div>
   )
 }
