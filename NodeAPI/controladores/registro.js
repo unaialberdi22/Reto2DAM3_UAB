@@ -2,16 +2,19 @@ const Sequelize = require('sequelize');
 var modelos = require('../modelos');
 var bcrypt = require('bcryptjs');
 
-exports.RegistrarUsuario = function(nombre, email, password,isadmin) {
+exports.RegistrarUsuario = (req, res) => {
   var promesa = new Promise (function(resolve,reject){
     var salt = bcrypt.genSaltSync(10);
-    var hash = bcrypt.hashSync(password, salt);
+    var hash = bcrypt.hashSync(req.params.password, salt);
     var nuevoUsuario = modelos.Usuarios.build({
-        username: nombre,
+        username: req.params.nombre,
         password: hash,
-        email: email,
-        isAdmin:isadmin
+        email: req.params.email,
+        isAdmin: req.params.isadmin
     });
+
+    console.log(nuevoUsuario)
+
     nuevoUsuario.save()
         .then(function(nuevoUsuario) {
             console.log('Usuario ' + nuevoUsuario.username + ' creado con éxito');

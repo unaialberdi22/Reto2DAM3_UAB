@@ -3,7 +3,7 @@ var express = require('express');
 var app = express();
 var bodyparser = require('body-parser');
 var logger = require('morgan');
-var puerto = process.env.PORT || 1515;
+var puerto = process.env.PORT || 8082;
 var rutas = require('./rutas.js').rutas;
 
 app.use(bodyparser.json());

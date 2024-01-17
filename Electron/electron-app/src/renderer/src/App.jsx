@@ -1,9 +1,9 @@
-import Menu from './components/menu'
+import FormRegistro from './components/FormRegistro'
 
 function App() {
   return (
     <div className="container">
-     <Menu></Menu>
+     <FormRegistro></FormRegistro>
     </div>
   )
 }
