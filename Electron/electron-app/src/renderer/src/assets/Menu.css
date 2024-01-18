@@ -1,0 +1,22 @@
+/* Menu.css */
+.menu {
+    display: flex;
+    flex-direction: column;
+    background-color: #f0f0f0;
+    padding-top: 10px;
+    width: 200px;
+    height: 100vh;
+  }
+  
+  .menu div {
+    cursor: pointer;
+    padding: 8px;
+    margin-bottom: 5px;
+    background-color: #ddd;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .menu div:hover {
+    background-color: #ccc;
+  }

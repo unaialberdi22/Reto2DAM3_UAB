@@ -1,0 +1,47 @@
+/* Estilo general del formulario */
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: auto;
+  }
+  
+  /* Estilo de las etiquetas y los campos de entrada */
+  label {
+    margin-bottom: 8px;
+  }
+  
+  /* Estilo del selector de tipo de incidencia */
+  select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 12px;
+  }
+  
+  /* Estilo del selector de fecha */
+  .react-datepicker-wrapper {
+    width: 100%;
+    margin-bottom: 12px;
+  }
+  
+  /* Estilo de los campos de texto */
+  input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 12px;
+  }
+  
+  /* Estilo del botón de envío */
+  button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  /* Estilo del botón de envío al pasar el ratón sobre él */
+  button:hover {
+    background-color: #45a049;
+  }

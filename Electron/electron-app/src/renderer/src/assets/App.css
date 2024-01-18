@@ -1,0 +1,10 @@
+/* App.css */
+.app {
+    display: flex;
+  }
+  
+  .main-content {
+    flex: 1;
+    padding-top: 20px;
+    height: 100vh;
+  }

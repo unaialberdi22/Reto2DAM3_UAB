@@ -39,6 +39,5 @@ rutas.post('/autentificar', function(req, res) {
     }
 })
 
-rutas.post('/registro/:nombre/:email/:password/:isAdmin', registro.RegistrarUsuario)
-
+rutas.post('/registro', registro.RegistrarUsuario);
 exports.rutas = rutas;

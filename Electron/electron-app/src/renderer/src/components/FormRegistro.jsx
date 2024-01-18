@@ -1,29 +1,42 @@
 import React, { useContext, useEffect, useState, useLayoutEffect, useRef, prevState } from "react";
-import '../assets/index.css';
+import '../assets/FormRegistro.css';
 
 export default function FormRegistro() {
 
+    var requestOptionsGet = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+
+    var requestOptionsPost = {
+      method: 'P',
+      redirect: 'follow'
+    };
+
     const API_ENDPOINT = 'http://10.10.12.205:3000/api/v1/';
     const [formData, setFormData] = useState({
-      name: '',
+      nombre: '',
       email: '',
       password: '',
-      isAdmin: false,
+      isAdmin: '',
     });
 
     const handleChange = (e) => {
-      const { name, value, type, checked } = e.target;
+      const { name, value } = e.target;
       setFormData({
         ...formData,
-        [name]: type === 'checkbox' ? checked : value,
+        [name.toLowerCase()]: value,
+        // Remove the condition for 'isAdmin' and set it directly to true
+        isAdmin: true,
       });
     };
 
     const handleSubmit = async (e) => {
+      console.log(formData)
       e.preventDefault();
   
       try {
-        const response = await fetch(API_ENDPOINT, {
+        const response = await fetch(API_ENDPOINT + "registro", {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -43,8 +56,8 @@ export default function FormRegistro() {
 
     async function test() {
       try {
-        const response = await fetch(API_ENDPOINT);
-        const result = await response.json();
+        const response = await fetch(API_ENDPOINT, requestOptionsGet);
+        const result = await response.text();
         console.log(result)
       } catch (error) {
         console.log('error', error);
@@ -52,50 +65,45 @@ export default function FormRegistro() {
     }
 
     return (
-      <div className="Registro">
-        <h1>Formulario de Registro</h1>
+      <div className="registro-container">
+        <h2>Registrar usuario administrador</h2>
         <form onSubmit={handleSubmit}>
-          <label>
-            Nombre:
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-            />
-          </label>
-          <br />
-          <label>
-            Email:
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-            />
-          </label>
-          <br />
-          <label>
-            Contraseña:
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-            />
-          </label>
-          <br />
-          <label>
-            Es Admin:
-            <input
-              type="checkbox"
-              name="isAdmin"
-              checked={formData.isAdmin}
-              onChange={handleChange}
-            />
-          </label>
-          <br />
-          <button onClick={() => test()}>Enviar</button>
+          <div className="form-group">
+            <label>
+              Nombre:
+              <input
+                type="text"
+                name="nombre"
+                value={formData.nombre}
+                onChange={handleChange}
+              />
+            </label>
+          </div>
+          <div className="form-group">
+            <label>
+              Email:
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+              />
+            </label>
+          </div>
+          <div className="form-group">
+            <label>
+              Contraseña:
+              <input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+              />
+            </label>
+          </div>
+          <div className="form-group">
+            <button type="submit">Enviar</button>
+          </div>
         </form>
       </div>
     );

@@ -1,37 +1,37 @@
 const Sequelize = require('sequelize');
-var modelos = require('../modelos');
-var bcrypt = require('bcryptjs');
+const modelos = require('../modelos');
+const bcrypt = require('bcryptjs');
 
 exports.RegistrarUsuario = (req, res) => {
-  var promesa = new Promise (function(resolve,reject){
-    var salt = bcrypt.genSaltSync(10);
-    var hash = bcrypt.hashSync(req.params.password, salt);
-    var nuevoUsuario = modelos.Usuarios.build({
-        username: req.params.nombre,
-        password: hash,
-        email: req.params.email,
-        isAdmin: req.params.isadmin
-    });
+  const salt = bcrypt.genSaltSync(10);
+  const hash = bcrypt.hashSync(req.body.password, salt);
 
-    console.log(nuevoUsuario)
-
-    nuevoUsuario.save()
-        .then(function(nuevoUsuario) {
-            console.log('Usuario ' + nuevoUsuario.username + ' creado con éxito');
-            resolve({ status: 200, mensaje: "Usuario creado con éxito" });
-        })
-        .catch(Sequelize.ValidationError, function(error) {
-            console.log("Errores de validación:", error);
-            for (var i in error.errors) {
-                console.log('Error en el campo:', error.errors[i].value);
-            };
-            reject({ status: 400, mensaje: "Errores de validación " ,error});
-        })
-        .catch(function(error) {
-            console.log("Error:", error);
-            reject({ status: 500, mensaje: "Error interno" });
-        });
+  const nuevoUsuario = modelos.Usuarios.build({
+    username: req.body.nombre,
+    password: hash,
+    email: req.body.email,
+    isAdmin: req.body.isAdmin,
   });
-  return promesa;
 
-}
+  nuevoUsuario.save()
+    .then((nuevoUsuario) => {
+      console.log('Usuario ' + nuevoUsuario.username + ' creado con éxito');
+
+      // Resto del código...
+
+      // Envía la respuesta al cliente
+      res.status(200).json({ mensaje: "Usuario creado con éxito" });
+    })
+    .catch((error) => {
+      if (error instanceof Sequelize.ValidationError) {
+        console.log("Errores de validación:", error.errors);
+        error.errors.forEach((e) => {
+          console.log('Error en el campo:', e.value);
+        });
+        res.status(400).json({ mensaje: "Errores de validación", error });
+      } else {
+        console.log("Error:", error);
+        res.status(500).json({ mensaje: "Error interno", error });
+      }
+    });
+};
