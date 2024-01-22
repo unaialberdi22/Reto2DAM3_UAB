@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState, useLayoutEffect, useRef, prevState } from "react";
 import '../assets/FormRegistro.css';
 
-export default function FormRegistro() {
+export default function FormUsuarios() {
 
     var requestOptionsGet = {
       method: 'GET',

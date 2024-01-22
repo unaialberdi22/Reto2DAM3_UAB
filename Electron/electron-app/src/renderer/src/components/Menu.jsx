@@ -5,9 +5,9 @@ import '../assets/Menu.css'; // Asegúrate de tener el archivo CSS correspondien
 const Menu = ({ onMenuClick }) => {
   return (
     <div className="menu">
-      <div onClick={() => onMenuClick('addUser')}>Añadir Usuario</div>
-      <div onClick={() => onMenuClick('addIncident')}>Añadir Incidencia</div>
-      <div onClick={() => onMenuClick('viewData')}>Ver Datos</div>
+      <div onClick={() => onMenuClick('User')}>Usuarios</div>
+      <div onClick={() => onMenuClick('Incident')}>Incidencias</div>
+      <div onClick={() => onMenuClick('Flows')}>Flows</div>
     </div>
   );
 };

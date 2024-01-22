@@ -32,20 +32,26 @@ const FormIncidencia = ({ onSubmit }) => {
   return (
     <form onSubmit={handleSubmit}>
       <label>
-        Incidence Type:
+        Tipo de incidencia:
         <select
           value={incidenceType}
           onChange={(e) => setIncidenceType(e.target.value)}
         >
-          <option value="">Select Type</option>
-          <option value="type1">Type 1</option>
-          <option value="type2">Type 2</option>
+          <option value="">*Selecionar tipo*</option>
+          <option value="type1">Meteorológica</option>
+          <option value="type2">Accidente</option>
+          <option value="type3">Retención</option>
+          <option value="type4">Seguridad vial</option>
+          <option value="type5">Puertos de montaña</option>
+          <option value="type6">Vialidad invernal tramos</option>
+          <option value="type7">Pruebas deportivas</option>
+          <option value="type8">Otras incidencias</option>
           {/* Agrega más opciones según sea necesario */}
         </select>
       </label>
 
       <label>
-        Cause:
+        Causa:
         <input
           type="text"
           value={cause}
@@ -54,17 +60,17 @@ const FormIncidencia = ({ onSubmit }) => {
       </label>
 
       <label>
-        Start Date:
+        Fecha inicio:
         <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
       </label>
 
       <label>
-        End Date:
+        Fecha fin:
         <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} />
       </label>
 
       <label>
-        Latitude:
+        Latitud:
         <input
           type="text"
           value={latitude}
@@ -73,7 +79,7 @@ const FormIncidencia = ({ onSubmit }) => {
       </label>
 
       <label>
-        Longitude:
+        Longitud:
         <input
           type="text"
           value={longitude}
@@ -82,7 +88,7 @@ const FormIncidencia = ({ onSubmit }) => {
       </label>
 
       <label>
-        Image:
+        Imagen:
         <input
           type="file"
           accept="image/*"
@@ -90,7 +96,7 @@ const FormIncidencia = ({ onSubmit }) => {
         />
       </label>
 
-      <button type="submit">Add Incident</button>
+      <button type="submit">Añadir Incidencia</button>
     </form>
   );
 };

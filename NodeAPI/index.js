@@ -1,4 +1,3 @@
-var modelos = require("./modelos");
 var express = require('express');
 var app = express();
 app.use((req, res, next) => {
@@ -16,4 +15,4 @@ app.use(bodyparser.json());
 app.use(logger('dev'));
 app.use('/api/v1',rutas);
 app.listen(puerto);
-console.log('Escuchando en '+puerto);
+console.log('Escuchando en '+ puerto);
