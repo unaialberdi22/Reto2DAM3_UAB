@@ -107,7 +107,7 @@ exports.borrarUsuario = function(req, res) {
     
 }
 
-exports.mostrarUsuario = function(req, res) {
+exports.mostrarUsuarios = function(req, res) {
     modelos.Usuarios.findAll()
         .then(usuarios => {
             res.status(200).json(usuarios);

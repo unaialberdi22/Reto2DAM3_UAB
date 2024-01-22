@@ -10,7 +10,7 @@ rutas.get('/', function(req, res) {
 });
 rutas.post('/registro', usuarios.RegistrarUsuario);
 rutas.post('/login', usuarios.autentificarUsuario);
-rutas.get('/showUser', usuarios.mostrarUsuarios);
+rutas.get('/showUsers', usuarios.mostrarUsuarios);
 rutas.put('/updateUser', usuarios.actualizarUsuario);
 rutas.delete('/deleteUser', usuarios.borrarUsuario);
 exports.rutas = rutas;
