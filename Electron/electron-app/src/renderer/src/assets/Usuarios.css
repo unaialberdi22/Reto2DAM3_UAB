@@ -1,0 +1,49 @@
+.user-list-container {
+  padding-left: 20px;
+  background-color: #ffffff;
+  }
+
+  #delButton{
+    background-color: rgb(184, 0, 0);
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    /* border: 1px solid #3b3b3b; */
+    padding: 10px;
+    text-align: left;
+    background-color: #dfdfdf;
+  }
+  
+  th {
+    background-color: #ffffff;
+  }
+  
+  button {
+    margin-right: 5px;
+    cursor: pointer;
+    padding: 5px 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 3px;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  #cabecera{
+    padding: 20px;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  h2{
+    margin: 0;
+  }

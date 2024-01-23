@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import Menu from './components/Menu';
 import FormRegistro from './components/FormUsuarios';
-import FormUsuarios from './components/FormUsuarios';
+import Usuarios from './components/Usuarios';
 import './assets/App.css'; // Asegúrate de tener el archivo CSS correspondiente
 
 const App = () => {
@@ -16,9 +16,9 @@ const App = () => {
     <div className="app">
       <Menu onMenuClick={handleMenuClick} />
       <div className="main-content">
-        {selectedOption === 'User' && <div><FormRegistro/></div>}
-        {selectedOption === 'addIncident' && <div><FormUsuarios/></div>}
-        {selectedOption === 'viewData' && <div>Aquí va el componente de Ver Datos</div>}
+        {selectedOption === 'User' && <div><Usuarios/></div>}
+        {selectedOption === 'addIncident' && <div></div>}
+        {selectedOption === 'viewData' && <div></div>}
       </div>
     </div>
   );

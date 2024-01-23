@@ -104,7 +104,23 @@ exports.actualizarUsuario = function(req, res) {
 }
 
 exports.borrarUsuario = function(req, res) {
-    
+    const userId = req.body.userId;
+
+    if (!userId) {
+        return res.status(400).json({ mensaje: 'ID del usuario no proporcionada en el cuerpo de la solicitud' });
+    }
+
+    modelos.Usuarios.destroy({
+        where: { id: userId }
+    })
+    .then(() => {
+        console.log('Usuario eliminado con éxito');
+        res.status(200).json({ mensaje: 'Usuario eliminado con éxito' });
+    })
+    .catch((error) => {
+        console.error(error);
+        res.status(500).json({ mensaje: 'Error interno al eliminar usuario', error });
+    });
 }
 
 exports.mostrarUsuarios = function(req, res) {
