@@ -99,9 +99,68 @@ function login(email, password) {
     });   
 }
 
-exports.actualizarUsuario = function(req, res) {
-    
-}
+exports.obtenerUsuario = async function(req, res) {
+  try {
+    // Obtener el userId del cuerpo de la solicitud
+    const userId = req.body.userId;
+    modelos.Usuarios.findAll({
+      where: { id: userId }
+  })
+    const usuario = await modelos.Usuarios.findByPk(userId);
+
+    if (usuario) {
+      res.status(200).json({
+        id: usuario.id,
+        username: usuario.username,
+        email: usuario.email,
+        isAdmin: usuario.isAdmin,
+      });
+    } else {
+      res.status(404).json({ mensaje: "Usuario no encontrado" });
+    }
+  } catch (error) {
+    console.error('Error al obtener usuario:', error);
+    res.status(500).json({ mensaje: 'Error interno al obtener usuario', error });
+  }
+};
+
+exports.actualizarUsuario = async function(req, res) {
+  try {
+    // Obtener el userId del cuerpo de la solicitud
+    const userId = req.body.userId;
+
+    // Obtener los datos actualizados del cuerpo de la solicitud
+    const { nombre, email, password, isAdmin } = req.body;
+
+    // Obtener el usuario existente
+    const usuario = await modelos.Usuarios.findByPk(userId);
+
+    if (!usuario) {
+      return res.status(404).json({ mensaje: "Usuario no encontrado" });
+    }
+
+    // Validar que solo se actualicen campos permitidos (ajusta según tus necesidades)
+    const camposActualizables = {
+      username: nombre,
+      email: email,
+      isAdmin: isAdmin,
+    };
+
+    // Si se proporciona una nueva contraseña, actualizarla
+    if (password) {
+      camposActualizables.password = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+    }
+
+    // Actualizar el usuario en la base de datos
+    await usuario.update(camposActualizables);
+
+    console.log('Usuario actualizado con éxito');
+    res.status(200).json({ mensaje: "Usuario actualizado con éxito" });
+  } catch (error) {
+    console.error('Error al actualizar usuario:', error);
+    res.status(500).json({ mensaje: 'Error interno al actualizar usuario', error });
+  }
+};
 
 exports.borrarUsuario = function(req, res) {
     const userId = req.body.userId;

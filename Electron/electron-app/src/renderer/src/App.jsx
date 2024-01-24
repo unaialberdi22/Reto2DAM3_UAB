@@ -1,8 +1,8 @@
 // App.jsx
 import React, { useState } from 'react';
 import Menu from './components/Menu';
-import FormRegistro from './components/FormUsuarios';
 import Usuarios from './components/Usuarios';
+import Incidencias from './components/Incidencias';
 import './assets/App.css'; // Asegúrate de tener el archivo CSS correspondiente
 
 const App = () => {
@@ -17,8 +17,8 @@ const App = () => {
       <Menu onMenuClick={handleMenuClick} />
       <div className="main-content">
         {selectedOption === 'User' && <div><Usuarios/></div>}
-        {selectedOption === 'addIncident' && <div></div>}
-        {selectedOption === 'viewData' && <div></div>}
+        {selectedOption === 'Incident' && <div><Incidencias/></div>}
+        {selectedOption === 'Flows' && <div></div>}
       </div>
     </div>
   );

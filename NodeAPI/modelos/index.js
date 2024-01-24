@@ -22,6 +22,7 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
 
 // Importar modelos.
 const Usuarios = require('./usuarios')(sequelize, Sequelize.DataTypes);
+// const Incidencias = require('./incidencias')(sequelize, Sequelize.DataTypes);
 
 // Crear tablas pendientes:
 sequelize.sync({force:true})
@@ -97,3 +98,4 @@ sequelize.sync({force:true})
 // Exportar modelos:
 
 exports.Usuarios = Usuarios;
+// exports.Incidencias = Incidencias;
