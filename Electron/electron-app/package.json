@@ -20,6 +20,7 @@
     "@electron-toolkit/preload": "^3.0.0",
     "@electron-toolkit/utils": "^3.0.0",
     "cors": "^2.8.5",
+    "date-fns": "^3.3.1",
     "electron-reload": "^2.0.0-alpha.1",
     "electron-updater": "^6.1.7",
     "react-datepicker": "^4.25.0",

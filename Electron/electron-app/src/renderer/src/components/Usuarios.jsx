@@ -44,11 +44,6 @@ export default function Usuarios() {
   };
 
   const handleEditUser = (userId) => {
-    // Encontrar el usuario en la lista basándote en userId
-    // const editedUser = users.find(user => user.id === userId);
-  
-    // Verificar si se encontró el usuario
-      // Mostrar el formulario de edición con los datos del usuario y el ID
       setEditUserId(userId);
       setShowUsersList(!showUsersList);
     
@@ -108,54 +103,4 @@ export default function Usuarios() {
         </div>
     );
   };
-  return (
-    <div className="user-list-container">
-      {showUsersList && (
-        <div>
-          <div id="cabecera">
-            <h2>Lista de usuarios</h2>
-          </div>
-          <table>
-            <thead>
-              <tr>
-                <th>Usuario</th>
-                <th>Email</th>
-                <th>Es administrador?</th>
-                <th><button onClick={toggleAddUserForm}>Agregar Usuario</button></th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((user) => (
-                <tr key={user.id}>
-                  <td>{user.username}</td>
-                  <td>{user.email}</td>
-                  <td>{user.isAdmin ? 'Si' : 'No'}</td>
-                  <td>
-                    <button onClick={() => handleEditUser(user.id)}>Editar</button>
-                    <button id="delButton" onClick={() => handleDeleteUser(user.id, user.username)}>Borrar</button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-
-{showAddUserForm && (
-  <div className="popup-overlay">
-    <div id="cabecera">
-      <h2>{editUserId ? 'Editar usuario' : 'Registrar usuario'}</h2>
-      <button onClick={toggleAddUserForm}>Volver</button>
-    </div>
-    <FormUsuarios
-      onClose={() => {
-        toggleAddUserForm();
-        setEditUserId(null); // Resetear editUserId al cerrar el formulario// Resetear los datos del usuario editado al cerrar el formulario
-      }}
-      editUserId={editUserId} // Pasar los datos del usuario editado al componente FormUsuarios
-    />
-  </div>
-)}
-    </div>
-  );
 }

@@ -8,7 +8,7 @@ var auth = require('basic-auth');
 //Seccion Todos los Usuarios
 
 //Seccion Registro
-exports.RegistrarUsuario = (req, res) => {
+exports.registrarUsuario = (req, res) => {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
   
@@ -105,7 +105,7 @@ exports.obtenerUsuario = async function(req, res) {
     const userId = req.body.userId;
     modelos.Usuarios.findAll({
       where: { id: userId }
-  })
+    })
     const usuario = await modelos.Usuarios.findByPk(userId);
 
     if (usuario) {

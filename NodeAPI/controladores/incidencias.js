@@ -1,115 +1,119 @@
 const Sequelize = require('sequelize');
 const modelos = require('../modelos');
 var config = require('../config/config.json');
-const incidencias = require('../modelos/incidencias');
 
 
 //Seccion Todos los Usuarios
 
 //Seccion Registro
-exports.RegistrarUsuario = (req, res) => {
+exports.añadirIncidencia = (req, res) => {
   
-    const nuevoUsuario = modelos.Incidencias.build({
-        incidenceId: req.body.incidenceId,
-        incidenceType: req.body.incidenceId,
-        cause: req.body.cause,
-        startDate: req.body.startDate,
+    const nuevaIncidencia = modelos.Incidencias.build({
+        incidenceType:req.body.incidenceType,
+        cause:req.body.cause,
+        startDate:req.body.startDate,
+        endDate:req.body.endDate,
+        latitude:req.body.latitude,
+        longitude:req.body.longitude,
     });
   
-    nuevoUsuario.save()
-      .then((nuevoUsuario) => {
-        console.log('Usuario ' + nuevoUsuario.username + ' creado con éxito');
+    nuevaIncidencia.save()
+      .then((nuevaIncidencia) => {
+        console.log('Incidencia ' + nuevaIncidencia.cause + ' creado con éxito');
   
         // Resto del código...
   
         // Envía la respuesta al cliente
-        res.status(200).json({ mensaje: "Usuario creado con éxito" });
+        res.status(200).json({ mensaje: "Incidencia creada con éxito" });
       })
       .catch((error) => {
         
       });
   };
 
-// exports.obtenerUsuario = async function(req, res) {
-//   try {
-//     // Obtener el userId del cuerpo de la solicitud
-//     const userId = req.body.userId;
+exports.obtenerIncidencia = async function(req, res) {
+  try {
+    // Obtener el incidenceId del cuerpo de la solicitud
+    const incidenceId = req.body.incidenceId;
+    modelos.Incidencias.findAll({
+        where: { incidenceId: incidenceId }
+      })
+    const incidencia = await modelos.Incidencias.findByPk(incidenceId);
 
-//     const usuario = await modelos.Usuarios.findByPk(userId);
+    if (incidencia) {
+      res.status(200).json({
+        incidenceId:incidencia.incidenceId,
+        incidenceType:incidencia.incidenceType,
+        cause:incidencia.cause,
+        startDate:incidencia.startDate,
+        endDate:incidencia.endDate,
+        latitude:incidencia.latitude,
+        longitude:incidencia.longitude,
+      });
+    } else {
+      res.status(404).json({ mensaje: "Incidencia no encontrada" });
+    }
+  } catch (error) {
+    console.error('Error al obtener incidencia:', error);
+    res.status(500).json({ mensaje: 'Error interno al obtener incidencia', error });
+  }
+};
 
-//     if (usuario) {
-//       res.status(200).json({
-//         id: usuario.id,
-//         username: usuario.username,
-//         email: usuario.email,
-//         isAdmin: usuario.isAdmin,
-//       });
-//     } else {
-//       res.status(404).json({ mensaje: "Usuario no encontrado" });
-//     }
-//   } catch (error) {
-//     console.error('Error al obtener usuario:', error);
-//     res.status(500).json({ mensaje: 'Error interno al obtener usuario', error });
-//   }
-// };
+exports.actualizarIncidencia = async function(req, res) {
+  try {
+    // Obtener el userId del cuerpo de la solicitud
+    const incidenceId = req.body.incidenceId;
 
-// exports.actualizarUsuario = async function(req, res) {
-//   try {
-//     // Obtener el userId del cuerpo de la solicitud
-//     const userId = req.body.userId;
+    // Obtener los datos actualizados del cuerpo de la solicitud
+    const { incidenceType, cause, startDate, endDate, latitude, longitude} = req.body;
 
-//     // Obtener los datos actualizados del cuerpo de la solicitud
-//     const { nombre, email, password, isAdmin } = req.body;
+    // Obtener el usuario existente
+    const incidencia = await modelos.Incidencias.findByPk(incidenceId);
 
-//     // Obtener el usuario existente
-//     const usuario = await modelos.Usuarios.findByPk(userId);
+    if (!incidencia) {
+      return res.status(404).json({ mensaje: "Incidencia no encontrada" });
+    }
 
-//     if (!usuario) {
-//       return res.status(404).json({ mensaje: "Usuario no encontrado" });
-//     }
+    // Validar que solo se actualicen campos permitidos (ajusta según tus necesidades)
+    const camposActualizables = {
+        incidenceType:incidenceType,
+        cause:cause,
+        startDate:startDate,
+        endDate:endDate,
+        latitude:latitude,
+        longitude:longitude,
+    };
 
-//     // Validar que solo se actualicen campos permitidos (ajusta según tus necesidades)
-//     const camposActualizables = {
-//       username: nombre,
-//       email: email,
-//       isAdmin: isAdmin,
-//     };
+    // Actualizar el usuario en la base de datos
+    await incidencia.update(camposActualizables);
 
-//     // Si se proporciona una nueva contraseña, actualizarla
-//     if (password) {
-//       camposActualizables.password = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
-//     }
+    console.log('Incidencia actualizada con éxito');
+    res.status(200).json({ mensaje: "Incidencia actualizada con éxito" });
+  } catch (error) {
+    console.error('Error al actualizar incidencia:', error);
+    res.status(500).json({ mensaje: 'Error interno al actualizar incidencia', error });
+  }
+};
 
-//     // Actualizar el usuario en la base de datos
-//     await usuario.update(camposActualizables);
+exports.borrarIncidencia = function(req, res) {
+    const incidenceId = req.body.incidenceId;
 
-//     console.log('Usuario actualizado con éxito');
-//     res.status(200).json({ mensaje: "Usuario actualizado con éxito" });
-//   } catch (error) {
-//     console.error('Error al actualizar usuario:', error);
-//     res.status(500).json({ mensaje: 'Error interno al actualizar usuario', error });
-//   }
-// };
+    if (!incidenceId) {
+        return res.status(400).json({ mensaje: 'ID de la incidencia no proporcionada en el cuerpo de la solicitud' });
+    }
 
-// exports.borrarUsuario = function(req, res) {
-//     const userId = req.body.userId;
-
-//     if (!userId) {
-//         return res.status(400).json({ mensaje: 'ID del usuario no proporcionada en el cuerpo de la solicitud' });
-//     }
-
-//     modelos.Usuarios.destroy({
-//         where: { id: userId }
-//     })
-//     .then(() => {
-//         console.log('Usuario eliminado con éxito');
-//         res.status(200).json({ mensaje: 'Usuario eliminado con éxito' });
-//     })
-//     .catch((error) => {
-//         console.error(error);
-//         res.status(500).json({ mensaje: 'Error interno al eliminar usuario', error });
-//     });
-// }
+    modelos.Incidencias.destroy({
+        where: { incidenceId: incidenceId }
+    })
+    .then(() => {
+        console.log('Incidencia eliminada con éxito');
+        res.status(200).json({ mensaje: 'Incidencia eliminada con éxito' });
+    })
+    .catch((error) => {
+        console.error(error);
+        res.status(500).json({ mensaje: 'Error interno al eliminar incidencia', error });
+    });
+}
 
 exports.mostrarIncidencias = function(req, res) {
     modelos.Incidencias.findAll()

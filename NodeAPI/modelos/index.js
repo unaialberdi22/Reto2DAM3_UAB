@@ -22,12 +22,12 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
 
 // Importar modelos.
 const Usuarios = require('./usuarios')(sequelize, Sequelize.DataTypes);
+const Incidencias = require('./incidencias')(sequelize, Sequelize.DataTypes);
 // const Incidencias = require('./incidencias')(sequelize, Sequelize.DataTypes);
 
 // Crear tablas pendientes:
 sequelize.sync({force:true})
 .then(function() {
-
     console.log('Tablas y modelos creados');
     // Creamos un usaurio admin de prueba
     // usuarios.RegistrarUsuario('Unai','unaialberdi22@gmail.com','2dam3',true)
@@ -44,7 +44,24 @@ sequelize.sync({force:true})
         email: 'unaialberdi22@gmail.com',
       };
 
+      const datosIncidencia = {
+        incidenceType:"Obra",
+        cause:"Alcance",
+        startDate:"2023-08-02T15:21:57",
+        endDate:"2023-08-02T15:41:21",
+        latitude:"43.27871",
+        longitude:"-2.32942",
+      }
+
       axios.post(apiUrl + '/registro', datosRegistro)
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.error(error.response.data);
+      });
+
+      axios.post(apiUrl + '/addIncidence', datosIncidencia)
       .then(response => {
         console.log(response.data);
       })
@@ -98,4 +115,4 @@ sequelize.sync({force:true})
 // Exportar modelos:
 
 exports.Usuarios = Usuarios;
-// exports.Incidencias = Incidencias;
+exports.Incidencias = Incidencias;
