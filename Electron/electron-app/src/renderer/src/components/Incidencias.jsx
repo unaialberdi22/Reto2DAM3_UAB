@@ -66,13 +66,14 @@ const handleDeleteIncidence = async (incidenceId) => {
       <table>
         <thead>
           <tr>
-            <th>ID de incidencia</th>
+            <th>ID</th>
             <th>Tipo de incidencia</th>
             <th>Causa</th>
             <th>Fecha inicio</th>
             <th>Fecha fin</th>
             <th>latitud</th>
             <th>longitud</th>
+            <th>Imagen/Camara</th>
             <th><button onClick={toggleAddIncidenceForm}>Agregar Incidencia</button></th>
           </tr>
         </thead>
@@ -87,6 +88,16 @@ const handleDeleteIncidence = async (incidenceId) => {
               <td>{incidence.latitude}</td>
               <td>{incidence.longitude}</td>
               <td>
+                {/* Muestra la imagen como una etiqueta de imagen */}
+                {incidence.urlImage && (
+                  <img
+                    src={incidence.urlImage}
+                    alt={`Imagen de la incidencia ${incidence.incidenceId}`}
+                    style={{ maxWidth: '100px', maxHeight: '100px' }}
+                  />
+                )}
+              </td>
+              <td>
                 <button onClick={() => handleEditIncidence(incidence.incidenceId)}>Editar</button>
                 <button id="delButton" onClick={() => handleDeleteIncidence(incidence.incidenceId)}>Borrar</button>
               </td>
@@ -97,6 +108,7 @@ const handleDeleteIncidence = async (incidenceId) => {
     </div>
     );
   }else{
+    console.log(editIncidenceId)
     return(
       <div className="popup-overlay">
           <div id="cabecera">

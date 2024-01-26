@@ -47,10 +47,11 @@ sequelize.sync({force:true})
       const datosIncidencia = {
         incidenceType:"Obra",
         cause:"Alcance",
-        startDate:"2023-08-02T15:21:57",
-        endDate:"2023-08-02T15:41:21",
+        startDate:"2023/08/02",
+        endDate:"2023/08/02",
         latitude:"43.27871",
         longitude:"-2.32942",
+        urlImage:"C:/Users/2dam3/Downloads/ImagenesReto/Logo.png",
       }
 
       axios.post(apiUrl + '/registro', datosRegistro)

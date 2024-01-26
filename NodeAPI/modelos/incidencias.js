@@ -39,6 +39,9 @@ module.exports = function(sequelize, DataTypes) {
         },
         longitude: {
             type: DataTypes.STRING
-        }
-    });
-};
+        },
+        urlImage: {
+          type: DataTypes.BLOB('long'), // Tipo de datos BLOB para imágenes grandes
+        },
+      });
+    };

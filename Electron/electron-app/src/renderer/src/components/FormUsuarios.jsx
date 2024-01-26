@@ -174,7 +174,7 @@ const FormUsuarios = ({ onClose, editUserId }) => {
           {/* Puedes agregar validaciones y mensajes de error para otros campos aquí */}
         </div>
         <div className="form-group">
-          <button type="submit">Enviar</button>
+          <button type="submit" id='botonEnviar'>Enviar</button>
         </div>
       </form>
     </div>

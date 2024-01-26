@@ -15,6 +15,7 @@ exports.añadirIncidencia = (req, res) => {
         endDate:req.body.endDate,
         latitude:req.body.latitude,
         longitude:req.body.longitude,
+        urlImage:req.body.urlImage,
     });
   
     nuevaIncidencia.save()
@@ -32,9 +33,11 @@ exports.añadirIncidencia = (req, res) => {
   };
 
 exports.obtenerIncidencia = async function(req, res) {
+  console.log("DENTRO DE OBTENER INCIDENCIA")
   try {
     // Obtener el incidenceId del cuerpo de la solicitud
     const incidenceId = req.body.incidenceId;
+    console.log(incidenceId)
     modelos.Incidencias.findAll({
         where: { incidenceId: incidenceId }
       })
@@ -49,6 +52,7 @@ exports.obtenerIncidencia = async function(req, res) {
         endDate:incidencia.endDate,
         latitude:incidencia.latitude,
         longitude:incidencia.longitude,
+        urlImage:incidencia.urlImage
       });
     } else {
       res.status(404).json({ mensaje: "Incidencia no encontrada" });
@@ -65,7 +69,7 @@ exports.actualizarIncidencia = async function(req, res) {
     const incidenceId = req.body.incidenceId;
 
     // Obtener los datos actualizados del cuerpo de la solicitud
-    const { incidenceType, cause, startDate, endDate, latitude, longitude} = req.body;
+    const { incidenceType, cause, startDate, endDate, latitude, longitude, urlImage} = req.body;
 
     // Obtener el usuario existente
     const incidencia = await modelos.Incidencias.findByPk(incidenceId);
@@ -82,6 +86,7 @@ exports.actualizarIncidencia = async function(req, res) {
         endDate:endDate,
         latitude:latitude,
         longitude:longitude,
+        urlImage:urlImage,
     };
 
     // Actualizar el usuario en la base de datos
