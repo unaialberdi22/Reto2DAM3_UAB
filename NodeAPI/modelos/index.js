@@ -47,6 +47,7 @@ sequelize.sync({force:true})
       const datosIncidencia = {
         incidenceType:"Obra",
         cause:"Alcance",
+        province:"GUIPUZCOA",
         startDate:"2023/08/02",
         endDate:"2023/08/02",
         latitude:"43.27871",

@@ -11,6 +11,7 @@ exports.añadirIncidencia = (req, res) => {
     const nuevaIncidencia = modelos.Incidencias.build({
         incidenceType:req.body.incidenceType,
         cause:req.body.cause,
+        province:req.body.province,
         startDate:req.body.startDate,
         endDate:req.body.endDate,
         latitude:req.body.latitude,
@@ -48,6 +49,7 @@ exports.obtenerIncidencia = async function(req, res) {
         incidenceId:incidencia.incidenceId,
         incidenceType:incidencia.incidenceType,
         cause:incidencia.cause,
+        province:incidencia.province,
         startDate:incidencia.startDate,
         endDate:incidencia.endDate,
         latitude:incidencia.latitude,
@@ -69,7 +71,7 @@ exports.actualizarIncidencia = async function(req, res) {
     const incidenceId = req.body.incidenceId;
 
     // Obtener los datos actualizados del cuerpo de la solicitud
-    const { incidenceType, cause, startDate, endDate, latitude, longitude, urlImage} = req.body;
+    const { incidenceType, cause,province, startDate, endDate, latitude, longitude, urlImage} = req.body;
 
     // Obtener el usuario existente
     const incidencia = await modelos.Incidencias.findByPk(incidenceId);
@@ -82,6 +84,7 @@ exports.actualizarIncidencia = async function(req, res) {
     const camposActualizables = {
         incidenceType:incidenceType,
         cause:cause,
+        province:province,
         startDate:startDate,
         endDate:endDate,
         latitude:latitude,

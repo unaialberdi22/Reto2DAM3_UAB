@@ -10,6 +10,7 @@ const FormIncidencia = ({ onClose, editIncidenceId }) => {
   const [formData, setFormData] = useState({
     incidenceType: '',
     cause: '',
+    province: '',
     startDate: null,
     endDate: null,
     latitude: '',
@@ -45,6 +46,7 @@ const FormIncidencia = ({ onClose, editIncidenceId }) => {
         setFormData({
           incidenceType: userData.incidenceType,
           cause: userData.cause,
+          province: userData.province,
           startDate: new Date(userData.startDate),
           endDate: new Date(userData.endDate),
           latitude: userData.latitude,
@@ -99,6 +101,7 @@ const FormIncidencia = ({ onClose, editIncidenceId }) => {
         setFormData({
           incidenceType: '',
           cause: '',
+          province: '',
           startDate: null,
           endDate: null,
           latitude: '',
@@ -139,15 +142,30 @@ const FormIncidencia = ({ onClose, editIncidenceId }) => {
           </label>
         </div>
         <div className="form-group">
-        <label>
-        Causa:
-        <input
-          type="text"
-          name="cause"
-          value={formData.cause}
-          onChange={handleChange}
-        />
-      </label>
+          <label>
+          Causa:
+          <input
+            type="text"
+            name="cause"
+            value={formData.cause}
+            onChange={handleChange}
+          />
+          </label>
+        </div>
+        <div className="form-group">
+          <label>
+            Provincia:
+            <select
+              name="province"
+              value={formData.province}
+              onChange={handleChange}
+            >
+              <option value="">*Selecionar provincia*</option>
+              <option value="GIPUZKOA">Guipuzcoa</option>
+              <option value="BIZKAIA">Vizcaya</option>
+              <option value="ARABA">Alava</option>
+            </select>
+          </label>
         </div>
         <div className="form-group">
           <label>

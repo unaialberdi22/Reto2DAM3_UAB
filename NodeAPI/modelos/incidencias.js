@@ -11,6 +11,9 @@ module.exports = function(sequelize, DataTypes) {
         cause: {
             type: DataTypes.STRING
         },
+        province: {
+          type: DataTypes.STRING
+      },
         startDate: {
             type: DataTypes.DATEONLY, // Usa DATEONLY para almacenar solo la fecha sin la hora
             get() {

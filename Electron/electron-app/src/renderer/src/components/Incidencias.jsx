@@ -69,6 +69,7 @@ const handleDeleteIncidence = async (incidenceId) => {
             <th>ID</th>
             <th>Tipo de incidencia</th>
             <th>Causa</th>
+            <th>Provincia</th>
             <th>Fecha inicio</th>
             <th>Fecha fin</th>
             <th>latitud</th>
@@ -83,6 +84,7 @@ const handleDeleteIncidence = async (incidenceId) => {
               <td>{incidence.incidenceId}</td>
               <td>{incidence.incidenceType}</td>
               <td>{incidence.cause}</td>
+              <td>{incidence.province}</td>
               <td>{incidence.startDate}</td>
               <td>{incidence.endDate}</td>
               <td>{incidence.latitude}</td>
